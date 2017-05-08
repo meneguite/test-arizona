@@ -1,0 +1,21 @@
+{% extends 'layout.twig' %}
+
+{% block sub_title 'List Countries' %}
+{% block body %}
+    <h1>List Countries</h1>
+    <table class="table">
+        <thead>
+            <tr> <th>Country Code</th> <th>Country Name</th> </tr>
+        </thead>
+        <tbody>
+            {% for countryCode, countryName in countries %}
+                <tr>
+                    <td>{{  countryCode }}</td>
+                    <td>{{  countryName }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="2">No countries found!</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock body %}
