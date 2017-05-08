@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# minion functions
+_help()
+{
+    echo "Daa hahaha hana dul sae aaaaaah bannnaaaaaaa"
+}
+
+PS3='bannnaaaaaaa: '
+options=(
+"Help"
+"Start"
+"Stop"
+"Restart"
+"Quit"
+)
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Help")
+            _help
+            break
+            ;;
+        "Start")
+            echo "Installing..."
+            docker-compose up -d
+            break
+            ;;
+        "Stop")
+            echo "Stoping..."
+            docker stop $(docker ps -a -q)
+            break
+            ;;
+        "Restart")
+            echo "Restarting..."
+            docker-compose up -d --force-recreate
+            break
+            ;;
+        "Quit")
+            break
+            ;;
+        *) echo invalid option;;
+    esac
+done
+
