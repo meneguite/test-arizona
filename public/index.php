@@ -13,6 +13,7 @@
  * @link      https://github.com/ivanrosolen/api-silex-skeleton
  */
 
+use Xuplau\Provider\CacheServiceProvider;
 use Xuplau\Provider\DoctrineServiceProvider;
 use Xuplau\Provider\RouteServiceProvider;
 use Xuplau\Provider\DatabaseServiceProvider;
@@ -31,6 +32,7 @@ $application->register(new RouteServiceProvider);
 //$application->register(new ValidationServiceProvider);
 //$application->register(new LocaleServiceProvider);
 //$application->register(new TranslationServiceProvider);
+$application->register(new CacheServiceProvider);
 $application->register(new TwigServiceProvider);
 
 $application->run();

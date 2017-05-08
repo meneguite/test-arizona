@@ -17,6 +17,7 @@ namespace Xuplau\Resources\Country;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Xuplau\Services\CountryService;
 
 /**
  * Resource that list users
@@ -24,7 +25,9 @@ use Symfony\Component\HttpFoundation\Request;
  * @version 1.0.0
  *
  * @package Xuplau\Resources\Country
- * @author Ronaldo Meneguite <ronaldo@fireguard.com.br>
+ * @author  Ivan Rosolen <ivanrosolen@gmail.com>
+ * @author  William Espindola <oi@williamespindola.com.br>
+ * @author  Ronaldo Meneguite <ronaldo@fireguard.com.br>
  */
 class Retrieve
 {
@@ -32,30 +35,47 @@ class Retrieve
      * Invokes route
      *
      * @param Application $application Application instance
-     * @param Request $request Request instance
      * @param string $format
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function __invoke(
-        Application $application,
-        Request $request,
-        $format = 'view'
-    ) {
+    public function __invoke( Application $application, $format )
+    {
+        $countries = $this->getListCountries($application);
 
-//        if (!is_null($page)) {
-//            $qtd    = $application['apipagelimit'];
-//            $page   = (!empty((int)$page)) ? $page : 1;
-//            $offset = ($page == 1) ? '0' : ($page*$qtd)-$qtd;
-//
-//            $users = $application['user']->fetchPage($qtd, $offset);
-//            // colocar rmm4 links
-//
-//            return $application->json($users);
-//        }
-//
-//        $users = $application['user']->fetchAll($qtd, $offset);
-//        // colocar rmm4 links
 
-        return $application->json($format);
+        return $application->json($countries);
+    }
+
+
+    /**
+     * @param Application $application
+     * @return array|mixed
+     */
+    protected function getListCountries(Application $application )
+    {
+        if ( $countries = $application['cache']->fetch('countries') ) {
+            return json_decode($countries);
+        }
+        return $this->getRemoteListForCountries($application);
+    }
+
+    /**
+     * @param Application $application
+     * @return array
+     */
+    protected function getRemoteListForCountries( Application $application )
+    {
+        $countries = [];
+        $this->storeListForCountries($application, $countries);
+        return $countries;
+    }
+
+    /**
+     * @param Application $application
+     * @param array $countries
+     */
+    protected function storeListForCountries( Application $application, array $countries )
+    {
+        $application['cache']->store('countries', json_encode($countries));
     }
 }

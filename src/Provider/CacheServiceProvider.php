@@ -34,7 +34,7 @@ use Xuplau\Validation\Rules\AuthRenewInput;
  * @author  Ronaldo Meneguite <ronaldo@fireguard.com.br>
  *
  */
-class TwigServiceProvider implements ServiceProviderInterface
+class CacheServiceProvider implements ServiceProviderInterface
 {
     /**
      * Register all validators
@@ -44,8 +44,11 @@ class TwigServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
-        $container->register(new \Silex\Provider\TwigServiceProvider(), array(
-            'twig.path' => __DIR__ . '/../Views',
+        $container->register(new \Moust\Silex\Provider\CacheServiceProvider(), array(
+            'cache.options' => array(
+                'driver'    => 'file',
+                'cache_dir' => './../data/cache'
+            )
         ));
     }
 
