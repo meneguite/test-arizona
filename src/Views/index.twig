@@ -1,0 +1,21 @@
+{% extends 'layout.twig' %}
+
+{% block sub_title 'Upload an Image - ' %}
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Escolha o formato a ser apresentado</h1>
+            <div class="actions">
+                <a class="btn btn-primary btn-lg" href="/countries">
+                    <i class="fa fa-eye" aria-hidden="true"></i> Visualizar na Tela
+                </a>
+                <a class="btn btn-default btn-lg" href="/countries/csv">
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Exportar para CSV
+                </a>
+                <a class="btn btn-default btn-lg" href="/countries/json">
+                    <i class="fa fa-sitemap" aria-hidden="true"></i> Exportar para JSON
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

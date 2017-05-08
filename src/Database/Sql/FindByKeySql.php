@@ -54,7 +54,7 @@ class FindByKeySql
      *
      * @param Connection $connection Doctrine connection instance
      * @param String     $tableName  The table name
-     * @param Array      Columns     Columns that will be selected
+     * @param array      $columns     Columns that will be selected
      * @param String     $keyName    The name of file for where condition
      * @param String     $keyValue   The value that will be uset on where condition
      */
@@ -75,7 +75,7 @@ class FindByKeySql
     /**
      * Generate string sql query
      *
-     * @return String sql querty
+     * @return array
      */
     public function execute()
     {

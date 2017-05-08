@@ -22,6 +22,7 @@ use Xuplau\Resources\Auth\Login            as AuthLogin;
 use Xuplau\Resources\Auth\Logout           as AuthLogout;
 use Xuplau\Resources\Auth\Renew            as AuthRenew;
 use Xuplau\Resources\Index;
+use Xuplau\Resources\Country\Retrieve as CountryRetrieve;
 use Xuplau\Resources\User\Create   as UserCreate;
 use Xuplau\Resources\User\Retrieve as UserRetrieve;
 use Xuplau\Resources\User\Update   as UserUpdate;
@@ -48,18 +49,19 @@ class RouteServiceProvider implements ServiceProviderInterface
     public function register(Container $container)
     {
         $container->get('/', new Index);
+        $container->get('/countries/{format}', new CountryRetrieve)->value('format', 'view');
 
-        $container->post('/user',          new UserCreate);
-        $container->put('/user/{hash}',    new UserUpdate);
-        $container->delete('/user/{hash}', new UserDelete);
-        $container->get('/users',          new UserRetrieve);
-        $container->get('/users/{page}',   new UserRetrieve); // pagination
+//        $container->post('/user',          new UserCreate);
+//        $container->put('/user/{hash}',    new UserUpdate);
+//        $container->delete('/user/{hash}', new UserDelete);
+//        $container->get('/users',          new UserRetrieve);
+//        $container->get('/users/{page}',   new UserRetrieve); // pagination
+//
+//        $container->post('/auth/login', new AuthLogin);
+//        $container->get('/auth/logout', new AuthLogout);
+//        $container->post('/auth/renew', new AuthRenew);
 
-        $container->post('/auth/login', new AuthLogin);
-        $container->get('/auth/logout', new AuthLogout);
-        $container->post('/auth/renew', new AuthRenew);
-
-        $container->before(new AuthRequestValidator);
+//        $container->before(new AuthRequestValidator);
     }
 
     /**

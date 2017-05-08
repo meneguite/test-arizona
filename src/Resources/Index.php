@@ -35,10 +35,6 @@ class Index
      */
     public function __invoke(Application $application)
     {
-
-        return $application->json([
-            'description' => $application['translator']->trans('index'),
-            'version'     => $application['version']
-        ]);
+        return $application['twig']->render('index.twig');
     }
 }
