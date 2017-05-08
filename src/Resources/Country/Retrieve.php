@@ -55,7 +55,7 @@ class Retrieve
             case 'json' :
                 return $this->getResultJson($application, $countries);
             case 'csv' :
-                return 'csv';
+                return $this->getResultCsv($application, $countries);
             default:
                 return $application->json('Invalid Format');
         }
@@ -69,7 +69,29 @@ class Retrieve
 
     protected function getResultJson( Application $application, array $countries )
     {
-        return $application->json( $this->formatArrayCountries($countries) );
+        return $application->json( $countries );
+    }
+
+    protected function getResultCsv( Application $application, array $countries )
+    {
+        if ( empty($countries) ) return null;
+
+        $stream = function() use ($countries) {
+            $output = fopen('php://output', 'w');
+            foreach ($countries as $countryCode => $countryName) {
+
+                fputcsv($output, [$countryCode, $countryName]);
+            }
+            fclose($output);
+        };
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Description' => 'File Transfer',
+            'Content-Disposition' => 'attachment; filename="countries.csv"',
+        ];
+
+        return $application->stream($stream, 200, $headers);
     }
 
     protected function formatArrayCountries(array $countries)
@@ -118,7 +140,7 @@ class Retrieve
             $tmpCountries = explode('   ', $lineContent);
             $countries[$tmpCountries[0]] = ($tmpCountries[1]) ? rtrim($tmpCountries[1]) : '';
         }
-        asort($result);
+        asort($countries);
         return $countries;
     }
 
