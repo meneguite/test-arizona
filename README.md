@@ -1,9 +1,16 @@
-# API Silex Skeleton
-
-Skeleton using [Silex](http://silex.sensiolabs.org) and [Json Web Token](http://jwt.io) to create a RESTFull API
+# Test Arizona
 
 ## Install
 
+## Clone Project
+
+```bash
+git clone https://github.com/meneguite/test-arizona.git your-project-folder
+cd your-project-folder
+```
+
+
+## Install Environments
 With Docker and Composer installed in your system just run the following command on project root:
 
 ```bash
@@ -13,25 +20,36 @@ With Docker and Composer installed in your system just run the following command
 
 ```
 
+### Install Dependencies
+
+```shell
+docker-compose exec php bash
+cd html/
+composer install
+```
+### Copy configuration file
+
+```shell
+cp config/settings.php.dist config/settings.php
+```
+
+
 ## Usage
 
-### Postman
-
+### For API
 Import [Postman](api-silex-skeleton.postman_collection.json) Collection
 
-### Minion (shell task manager)
+### For Application
 
-Run `./bin/minion` and you will see this options:
+Access the root of the application, usually http://localhost/
 
-1) Help
+### Available routes
 
-2) Start
-
-3) Close
-
-4) Restart
-
-5) Quit
+* "/":   The root return basic actions disponibles
+* "/countries":   Return HTML with list of the countries
+* "/countries/json":   Return JSON with list of the countries
+* "/countries/csv":   Return CSV with list of the countries
+* "/countries/any-other-options": Return Invalid format
 
 ## Change log
 

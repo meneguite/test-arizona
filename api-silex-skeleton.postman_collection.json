@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "api-silex-skeleton",
-		"_postman_id": "cd119e87-df81-e0bf-a79f-4af2e9656326",
+		"_postman_id": "3c5978cd-01b2-20a7-a7f2-a718b080b5d3",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -46,10 +46,7 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -66,10 +63,7 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -86,10 +80,7 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -217,10 +208,7 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -237,10 +225,41 @@
 						"description": ""
 					}
 				],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "retrieve countries - JSON",
+			"request": {
+				"url": "http://docker.dev/countries/json",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "retrieve countries - CSV",
+			"request": {
+				"url": "http://docker.dev/countries/csv",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": ""
+					}
+				],
+				"body": {},
 				"description": ""
 			},
 			"response": []
