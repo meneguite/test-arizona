@@ -17,8 +17,8 @@ use Xuplau\Application;
 
 require_once realpath(__DIR__.'/vendor/autoload.php');
 
-return call_user_func(function () {
-    $settings = require_once realpath(__DIR__.'/config/settings.php');
+//return call_user_func(function () {
+    $settings = require realpath(__DIR__.'/config/settings.php');
 
     foreach ($settings['php'] as $key => $value) {
         ini_set($key, $value);
@@ -29,4 +29,4 @@ return call_user_func(function () {
     $application = new Application($settings);
 
     return $application;
-});
+//});

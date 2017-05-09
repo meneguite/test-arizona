@@ -111,18 +111,18 @@ class CountryService
         return $application->stream($stream, 200, $headers);
     }
 
-    /**
-     * @param array $countries
-     * @return array
-     */
-    protected function formatArrayCountries(array $countries)
-    {
-        $formattedCountries = [];
-        foreach ($countries as $countryCode => $countryName) {
-            $formattedCountries[] = ['CountryCode' => $countryCode, 'CountryName' => $countryName];
-        }
-        return $formattedCountries;
-    }
+//    /**
+//     * @param array $countries
+//     * @return array
+//     */
+//    protected function formatArrayCountries(array $countries)
+//    {
+//        $formattedCountries = [];
+//        foreach ($countries as $countryCode => $countryName) {
+//            $formattedCountries[] = ['CountryCode' => $countryCode, 'CountryName' => $countryName];
+//        }
+//        return $formattedCountries;
+//    }
 
     /**
      * @param array $lines
