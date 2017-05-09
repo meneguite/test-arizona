@@ -31,125 +31,17 @@ use Xuplau\Services\CountryService;
  */
 class Retrieve
 {
-    protected $urlData = 'https://gist.githubusercontent.com/ivanrosolen/f8e9e588adf0286e341407aca63b5230/raw/99e205ea104190c5e09935f06b19c30c4c0cf17e/country';
-
     /**
      * Invokes route
      *
-     * @param Application $application Application instance
+     * @param Application $application
      * @param string $format
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function __invoke( Application $application, $format )
+    public function __invoke( Application $application , $format )
     {
-        $countries = $this->getListCountries($application);
-
-        return $this->getResultForFormat($application, $countries, $format);
-    }
-
-    protected function getResultForFormat( Application $application, array $countries, $format )
-    {
-        switch ($format) {
-            case 'view' :
-                return $this->getResultView($application, $countries);
-            case 'json' :
-                return $this->getResultJson($application, $countries);
-            case 'csv' :
-                return $this->getResultCsv($application, $countries);
-            default:
-                return $application->json('Invalid Format');
-        }
-    }
-
-    protected function getResultView( Application $application, array $countries ) {
-        return $application['twig']->render('countries/list.twig', [
-            'countries' => $countries,
-        ]);
-    }
-
-    protected function getResultJson( Application $application, array $countries )
-    {
-        return $application->json( $countries );
-    }
-
-    protected function getResultCsv( Application $application, array $countries )
-    {
-        if ( empty($countries) ) return null;
-
-        $stream = function() use ($countries) {
-            $output = fopen('php://output', 'w');
-            foreach ($countries as $countryCode => $countryName) {
-
-                fputcsv($output, [$countryCode, $countryName]);
-            }
-            fclose($output);
-        };
-
-        $headers = [
-            'Content-Type' => 'text/csv',
-            'Content-Description' => 'File Transfer',
-            'Content-Disposition' => 'attachment; filename="countries.csv"',
-        ];
-
-        return $application->stream($stream, 200, $headers);
-    }
-
-    protected function formatArrayCountries(array $countries)
-    {
-        $formattedCountries = [];
-        foreach ($countries as $countryCode => $countryName) {
-            $formattedCountries[] = ['CountryCode' => $countryCode, 'CountryName' => $countryName];
-        }
-        return $formattedCountries;
-    }
-
-    /**
-     * @param Application $application
-     * @return array|mixed
-     */
-    protected function getListCountries( Application $application )
-    {
-        if ( $countries = $application['cache']->fetch('countries') ) {
-            return json_decode($countries, true);
-        }
-        return $this->getRemoteListForCountries($application);
-    }
-
-    /**
-     * @param Application $application
-     * @return array
-     */
-    protected function getRemoteListForCountries( Application $application )
-    {
-        $countries = $this->extractArrayCountriesForResult( file($this->urlData) );
-        $this->storeListForCountries($application, $countries);
-        return $countries;
-    }
-
-    /**
-     * @param array $lines
-     * @return array
-     */
-    protected function extractArrayCountriesForResult(array $lines )
-    {
-        $countries = [];
-        foreach ($lines as $lineNumber => $lineContent) {
-            // Ignore first lines
-            if ( in_array( $lineNumber, [0, 1, 2] ) ) continue;
-
-            $tmpCountries = explode('   ', $lineContent);
-            $countries[$tmpCountries[0]] = ($tmpCountries[1]) ? rtrim($tmpCountries[1]) : '';
-        }
-        asort($countries);
-        return $countries;
-    }
-
-    /**
-     * @param Application $application
-     * @param array $countries
-     */
-    protected function storeListForCountries( Application $application, array $countries )
-    {
-        $application['cache']->store('countries', json_encode($countries));
+        $service = new CountryService($application);
+        $countries = $service->getListCountries();
+        return $service->getResponseForFormat($countries, $format);
     }
 }
