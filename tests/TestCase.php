@@ -16,7 +16,7 @@ class TestCase extends WebTestCase
      */
     public function createApplication()
     {
-        $app = require __DIR__.'/../../bootstrap.php';
+        $app = require __DIR__.'/../bootstrap.php';
         $app->register(new RouteServiceProvider);
         $app->register(new CacheServiceProvider);
         $app->register(new TwigServiceProvider);

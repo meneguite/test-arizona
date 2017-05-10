@@ -65,7 +65,7 @@ class CountryServiceTest extends TestCase
         $crawler = new Crawler($html);
 
         $this->assertTrue(
-            $crawler->filterXPath('descendant-or-self::tbody/tr')->count() > 1,
+            $crawler->filter('tbody > tr')->count() > 1,
             'A number greater than one of the records in the table was expected'
         );
     }
